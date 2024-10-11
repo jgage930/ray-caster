@@ -1,5 +1,6 @@
 use std::fmt;
 
+#[derive(Clone, Debug)]
 pub struct Color {
     r: u8,
     g: u8,
@@ -28,4 +29,11 @@ impl fmt::Display for Color {
 
 pub struct FrameBuffer {
     buf: Vec<Vec<Color>>,
+}
+
+impl FrameBuffer {
+    pub fn new(width: usize, height: usize, color: &Color) -> Self {
+        let buf = vec![vec![color.clone(); width]; height];
+        Self { buf }
+    }
 }
