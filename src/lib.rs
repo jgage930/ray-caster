@@ -10,9 +10,9 @@ pub struct Color {
 }
 
 impl Color {
-    const RED: Self = Color { r: 255, g: 0, b: 0 };
-    const GREEN: Self = Color { r: 0, g: 255, b: 0 };
-    const BLUE: Self = Color { r: 0, g: 0, b: 255 };
+    pub const RED: Self = Color { r: 255, g: 0, b: 0 };
+    pub const GREEN: Self = Color { r: 0, g: 255, b: 0 };
+    pub const BLUE: Self = Color { r: 0, g: 0, b: 255 };
 
     pub fn new(r: u8, g: u8, b: u8) -> Self {
         Self { r, g, b }
@@ -25,7 +25,7 @@ impl Color {
 
 impl fmt::Display for Color {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{} {} {}", self.r, self.g, self.b)
+        write!(f, "{} {} {} ", self.r, self.g, self.b)
     }
 }
 
