@@ -1,4 +1,6 @@
-use std::fmt;
+use anyhow::{Context, Result};
+use std::fmt::{self};
+use std::fs;
 
 #[derive(Clone, Debug)]
 pub struct Color {
@@ -28,12 +30,41 @@ impl fmt::Display for Color {
 }
 
 pub struct FrameBuffer {
+    width: usize,
+    height: usize,
     buf: Vec<Vec<Color>>,
 }
 
 impl FrameBuffer {
     pub fn new(width: usize, height: usize, color: &Color) -> Self {
         let buf = vec![vec![color.clone(); width]; height];
-        Self { buf }
+        Self { width, height, buf }
     }
+}
+
+/// Save a frame buffer to a ppm image.
+/// # Arguments
+/// * path - the path to save the image
+/// * buf - the image buffer to write
+pub fn save_ppm(path: &str, buffer: &FrameBuffer) -> Result<()> {
+    let header = format!("P3\n{} {}\n255\n", buffer.width, buffer.height);
+
+    let mut rows = String::new();
+    for row in buffer.buf.iter() {
+        let mut row_str = String::new();
+        for color in row.iter() {
+            row_str.push_str(&color.to_string());
+        }
+        row_str.push_str("\n");
+
+        rows.push_str(&row_str);
+    }
+
+    let mut ppm = String::new();
+    ppm.push_str(&header);
+    ppm.push_str(&rows);
+
+    fs::write(path, ppm).context("Failed to write ppm file")?;
+
+    Ok(())
 }
