@@ -1,3 +1,5 @@
+use std::fmt;
+
 pub struct Color {
     r: u8,
     g: u8,
@@ -16,4 +18,14 @@ impl Color {
     pub fn as_tuple(&self) -> (u8, u8, u8) {
         (self.r, self.g, self.b)
     }
+}
+
+impl fmt::Display for Color {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} {} {}", self.r, self.g, self.b)
+    }
+}
+
+pub struct FrameBuffer {
+    buf: Vec<Vec<Color>>,
 }
