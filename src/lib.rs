@@ -40,6 +40,8 @@ impl FrameBuffer {
         let buf = vec![vec![color.clone(); width]; height];
         Self { width, height, buf }
     }
+
+    pub fn draw_rectangle(&mut self, top: usize, left: usize, color: &Color) {}
 }
 
 /// Save a frame buffer to a ppm image.
