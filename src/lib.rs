@@ -53,11 +53,27 @@ impl FrameBuffer {
     }
 
     /// Set pixel at x, y to draw color.
-    fn set_pixel(&mut self, x: usize, y: usize) {
+    pub fn draw_pixel(&mut self, x: usize, y: usize) {
         self.buf[x][y] = self.draw_color.clone();
     }
 
-    pub fn draw_rect(&mut self, top: usize, left: usize, color: &Color) {}
+    pub fn draw_rect(&mut self, rect: &Rect) {
+        let bottom = rect.top + rect.height;
+        let right = rect.left + rect.width;
+
+        for y in rect.top..bottom {
+            for x in rect.left..right {
+                self.draw_pixel(x, y);
+            }
+        }
+    }
+}
+
+pub struct Rect {
+    top: usize,
+    left: usize,
+    width: usize,
+    height: usize,
 }
 
 /// Save a frame buffer to a ppm image.
