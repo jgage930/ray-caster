@@ -34,6 +34,10 @@ impl fmt::Display for Color {
     }
 }
 
+pub trait Drawable {
+    fn draw(&self, buf: &FrameBuffer);
+}
+
 pub struct FrameBuffer {
     width: usize,
     height: usize,
@@ -60,6 +64,10 @@ impl FrameBuffer {
     /// Set pixel at x, y to draw color.
     pub fn draw_pixel(&mut self, x: usize, y: usize) {
         self.buf[x][y] = self.draw_color.clone();
+    }
+
+    pub fn draw<T: Drawable>(&self, object: T) {
+        object.draw(&self);
     }
 
     pub fn draw_rect(&mut self, rect: &Rect) {

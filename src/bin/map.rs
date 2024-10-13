@@ -1,7 +1,7 @@
 use ray_caster::*;
 
 fn main() {
-    let map = "
+    let map_file = "
         1111111111
         1        1
         1        1
@@ -13,6 +13,7 @@ fn main() {
         1        1
         1111111111
     ";
+    let map = Map::new(64, map_file);
 
     let mut buf = FrameBuffer::new(500, 500, &Color::BLACK);
     buf.set_draw_color(Color::GREEN);
