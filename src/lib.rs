@@ -94,6 +94,8 @@ impl Rect {
 
 pub struct Map {
     tile_size: usize,
+    width: usize,
+    height: usize,
     walls: Vec<Rect>,
 }
 
@@ -107,6 +109,33 @@ impl Map {
             let row: Vec<char> = line.chars().collect();
 
             cells.push(row);
+        }
+
+        let width = &lines[0].len();
+        let height = &lines.len();
+
+        // Create the rectangles
+        let mut walls = Vec::new();
+        for x in 0..*width {
+            for y in 0..*height {
+                let c = &cells[x][y];
+                if *c == ' ' {
+                    continue;
+                }
+
+                let top = y * tile_size;
+                let left = x * tile_size;
+
+                let rect = Rect::new(top, left, left + tile_size, left + tile_size);
+                walls.push(rect);
+            }
+        }
+
+        Self {
+            tile_size,
+            width: *width,
+            height: *height,
+            walls,
         }
     }
 }
