@@ -1,6 +1,19 @@
 use ray_caster::*;
 
 fn main() {
+    let map = "
+        1111111111
+        1        1
+        1        1
+        1        1
+        1        1
+        1        1
+        1        1
+        1        1
+        1        1
+        1111111111
+    ";
+
     let mut buf = FrameBuffer::new(500, 500, &Color::BLACK);
     buf.set_draw_color(Color::GREEN);
 

@@ -1,6 +1,5 @@
 use anyhow::{Context, Result};
-use std::fmt::{self};
-use std::fs;
+use std::{convert::From, fmt, fs};
 
 #[derive(Clone, Debug)]
 pub struct Color {
@@ -89,6 +88,25 @@ impl Rect {
             left,
             width,
             height,
+        }
+    }
+}
+
+pub struct Map {
+    tile_size: usize,
+    walls: Vec<Rect>,
+}
+
+impl Map {
+    pub fn new(tile_size: usize, map: &str) -> Self {
+        // Split str into a Vec<Vec<char>>
+        let mut cells: Vec<Vec<char>> = Vec::new();
+
+        let lines: Vec<&str> = map.split('\n').collect();
+        for line in lines.iter() {
+            let row: Vec<char> = line.chars().collect();
+
+            cells.push(row);
         }
     }
 }
