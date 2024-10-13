@@ -13,6 +13,12 @@ impl Color {
     pub const RED: Self = Color { r: 255, g: 0, b: 0 };
     pub const GREEN: Self = Color { r: 0, g: 255, b: 0 };
     pub const BLUE: Self = Color { r: 0, g: 0, b: 255 };
+    pub const BLACK: Self = Color { r: 0, g: 0, b: 0 };
+    pub const WHITE: Self = Color {
+        r: 255,
+        g: 255,
+        b: 255,
+    };
 
     pub fn new(r: u8, g: u8, b: u8) -> Self {
         Self { r, g, b }
@@ -63,7 +69,7 @@ impl FrameBuffer {
 
         for y in rect.top..bottom {
             for x in rect.left..right {
-                self.draw_pixel(x, y);
+                self.draw_pixel(y, x);
             }
         }
     }
@@ -74,6 +80,17 @@ pub struct Rect {
     left: usize,
     width: usize,
     height: usize,
+}
+
+impl Rect {
+    pub fn new(top: usize, left: usize, width: usize, height: usize) -> Self {
+        Self {
+            top,
+            left,
+            width,
+            height,
+        }
+    }
 }
 
 /// Save a frame buffer to a ppm image.
