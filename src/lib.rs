@@ -33,15 +33,26 @@ pub struct FrameBuffer {
     width: usize,
     height: usize,
     buf: Vec<Vec<Color>>,
+    draw_color: Color,
 }
 
 impl FrameBuffer {
     pub fn new(width: usize, height: usize, color: &Color) -> Self {
         let buf = vec![vec![color.clone(); width]; height];
-        Self { width, height, buf }
+        Self {
+            width,
+            height,
+            buf,
+            draw_color: Color::GREEN,
+        }
     }
 
-    pub fn draw_rectangle(&mut self, top: usize, left: usize, color: &Color) {}
+    /// Set pixel at x, y to draw color.
+    fn set_pixel(&mut self, x: usize, y: usize) {
+        self.buf[x][y] = self.draw_color.clone();
+    }
+
+    pub fn draw_rect(&mut self, top: usize, left: usize, color: &Color) {}
 }
 
 /// Save a frame buffer to a ppm image.
