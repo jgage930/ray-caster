@@ -35,7 +35,7 @@ impl fmt::Display for Color {
 }
 
 pub trait Drawable {
-    fn draw(&self, buf: &FrameBuffer);
+    fn draw(&self, buf: &mut FrameBuffer);
 }
 
 pub struct FrameBuffer {
@@ -66,8 +66,8 @@ impl FrameBuffer {
         self.buf[x][y] = self.draw_color.clone();
     }
 
-    pub fn draw<T: Drawable>(&self, object: T) {
-        object.draw(&self);
+    pub fn draw<T: Drawable>(&mut self, object: T) {
+        object.draw(self);
     }
 
     pub fn draw_rect(&mut self, rect: &Rect) {
@@ -144,6 +144,14 @@ impl Map {
             width: *width,
             height: *height,
             walls,
+        }
+    }
+}
+
+impl Drawable for Map {
+    fn draw(&self, buf: &mut FrameBuffer) {
+        for wall in &self.walls {
+            buf.draw_rect(wall);
         }
     }
 }

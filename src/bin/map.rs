@@ -21,5 +21,7 @@ fn main() {
     let rect = Rect::new(100, 150, 200, 50);
     buf.draw_rect(&rect);
 
+    buf.draw(map);
+
     save_ppm("images/map.ppm", &buf).expect("Could not write to file.");
 }
