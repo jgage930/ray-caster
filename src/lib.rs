@@ -47,6 +47,11 @@ impl FrameBuffer {
         }
     }
 
+    /// Set the color to draw to the buffer with.
+    pub fn set_draw_color(&mut self, color: Color) {
+        self.draw_color = color;
+    }
+
     /// Set pixel at x, y to draw color.
     fn set_pixel(&mut self, x: usize, y: usize) {
         self.buf[x][y] = self.draw_color.clone();
