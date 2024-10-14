@@ -11,6 +11,8 @@ pub struct Player {
 
     /// Direction player is looking in.
     dir: f32,
+    /// Field of view.
+    fov: f32,
 
     rect: Rect,
 }
