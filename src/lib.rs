@@ -3,7 +3,7 @@ pub mod player;
 pub mod utils;
 
 use anyhow::{Context, Result};
-use map::{Ray, Rect};
+use map::{Point, Ray, Rect};
 use std::{fmt, fs};
 
 #[derive(Clone, Debug)]
@@ -91,6 +91,30 @@ impl FrameBuffer {
         let horizon = 256;
         for ray in &rays {
             let height = 1 / ray.length() as usize;
+        }
+    }
+}
+
+struct VerticalLine {
+    x: usize,
+    length: usize,
+}
+
+impl VerticalLine {
+    pub fn new(x: usize, length: usize) -> Self {
+        Self { x, length }
+    }
+}
+
+impl Drawable for VerticalLine {
+    fn draw(&self, buf: &mut FrameBuffer) {
+        let horizon = 256;
+
+        let top = horizon - (self.length / 2);
+        let bottom = horizon + (self.length / 2);
+
+        for y in top..bottom {
+            buf.draw_pixel(self.x, y)
         }
     }
 }
