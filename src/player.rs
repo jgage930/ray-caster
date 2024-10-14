@@ -36,7 +36,7 @@ impl Player {
         let player_x = self.x as f32;
         let player_y = self.y as f32;
 
-        let range = FloatRange::new(0., 1000., 0.05);
+        let range = FloatRange::new(0., 10_000., map.tile_size() as f32);
         for c in range {
             let x = player_x + c * angle.cos();
             let y = player_y + c * angle.sin();
