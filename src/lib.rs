@@ -111,21 +111,26 @@ pub struct Map {
 }
 
 impl Map {
-    pub fn new(tile_size: usize, map: &str) -> Self {
-        // Split str into a Vec<Vec<char>>
+    /// Parse a string into a vec<vec<char>>
+    fn parse_cells(val: &str) -> Vec<Vec<char>> {
         let mut cells: Vec<Vec<char>> = Vec::new();
 
-        let lines: Vec<&str> = map.split('\n').collect();
+        let lines: Vec<&str> = val.split('\n').collect();
         for line in lines.iter() {
             let row: Vec<char> = line.trim().chars().collect();
 
             cells.push(row);
         }
 
-        print!("{:?}", cells);
+        cells
+    }
 
-        let width = &lines[0].len();
-        let height = &lines.len();
+    pub fn new(tile_size: usize, map: &str) -> Self {
+        // Split str into a Vec<Vec<char>>
+        let cells = Self::parse_cells(map);
+
+        let width = &cells[0].len();
+        let height = &cells.len();
 
         // Create the rectangles
         let mut walls = Vec::new();
