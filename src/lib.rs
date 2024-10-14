@@ -77,7 +77,7 @@ impl FrameBuffer {
 
         for y in rect.top..bottom {
             for x in rect.left..right {
-                self.draw_pixel(y, x);
+                self.draw_pixel(x, y);
             }
         }
     }
@@ -132,7 +132,7 @@ impl Map {
         let width = &cells[0].len();
         let height = &cells.len();
 
-        // Create the rectangles
+        // Create the rectangle
         let mut walls = Vec::new();
         for x in 0..*width {
             for y in 0..*height {
