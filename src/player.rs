@@ -23,6 +23,7 @@ impl Player {
             x,
             y,
             dir: 3.14 / 4.,
+            fov: 0.,
             rect: Rect::new(x, x, PLAYER_SIZE, PLAYER_SIZE),
         }
     }

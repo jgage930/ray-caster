@@ -1,5 +1,6 @@
 pub mod map;
 pub mod player;
+pub mod utils;
 
 use anyhow::{Context, Result};
 use map::Rect;

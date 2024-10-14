@@ -20,7 +20,7 @@ fn main() {
     let mut buf = map.into_buffer();
 
     buf.set_draw_color(Color::GREEN);
-    buf.draw(map);
+    buf.draw(&map);
 
     save_ppm("images/map.ppm", &buf).expect("Could not write to file.");
 }
