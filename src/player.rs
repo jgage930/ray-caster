@@ -20,7 +20,7 @@ impl Player {
         Self {
             x,
             y,
-            dir: 3.14,
+            dir: 3.14 / 4.,
             rect: Rect::new(x, x, PLAYER_SIZE, PLAYER_SIZE),
         }
     }
@@ -31,7 +31,7 @@ impl Player {
         let player_x = self.x as f32;
         let player_y = self.y as f32;
 
-        for c in (0..20).map(|x| x as f32 * 0.05) {
+        for c in (0..1000).map(|x| x as f32 * 0.5) {
             let x = player_x + c * self.dir.cos();
             let y = player_y + c * self.dir.sin();
 
