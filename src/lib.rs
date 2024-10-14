@@ -87,14 +87,18 @@ impl FrameBuffer {
         }
     }
 
-    pub fn render_3d(&mut self, rays: Vec<Ray>) {
-        let horizon = 256;
-        for ray in &rays {
-            let height = 1 / ray.length() as usize;
+    pub fn render_3d(&mut self, rays: &Vec<Ray>) {
+        for (x, ray) in rays.iter().enumerate() {
+            // Tile size * screen height
+            let height = 32. * 512. / ray.length();
+            let line = VerticalLine::new(x, height as usize);
+
+            self.draw(&line);
         }
     }
 }
 
+#[derive(Debug)]
 struct VerticalLine {
     x: usize,
     length: usize,

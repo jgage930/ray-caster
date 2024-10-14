@@ -22,5 +22,9 @@ fn main() {
 
     let rays = player.cast_rays(&map);
     let mut buf = FrameBuffer::new(512, 512, &Color::WHITE);
+
+    buf.set_draw_color(Color::RED);
+    buf.render_3d(&rays);
+
     save_ppm("images/3d_player.ppm", &buf).expect("Could not write to file.");
 }
