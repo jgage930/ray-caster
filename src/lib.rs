@@ -71,7 +71,7 @@ impl FrameBuffer {
         self.buf[x][y] = self.draw_color.clone();
     }
 
-    pub fn draw<T: Drawable>(&mut self, object: T) {
+    pub fn draw<T: Drawable>(&mut self, object: &T) {
         object.draw(self);
     }
 

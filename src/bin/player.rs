@@ -21,12 +21,14 @@ fn main() {
     let mut buf = map.into_buffer();
 
     buf.set_draw_color(Color::GREEN);
-    buf.draw(map);
+    buf.draw(&map);
 
     let player = Player::new(100, 100);
 
     buf.set_draw_color(Color::RED);
-    buf.draw(player);
+    buf.draw(&player);
+
+    player.cast_ray(&map, &mut buf);
 
     save_ppm("images/player.ppm", &buf).expect("Could not write to file.");
 }

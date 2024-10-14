@@ -24,6 +24,7 @@ pub struct Map {
     tile_size: usize,
     width: usize,
     height: usize,
+    cells: Vec<Vec<char>>,
     walls: Vec<Rect>,
 }
 
@@ -70,6 +71,7 @@ impl Map {
             tile_size,
             width: *width,
             height: *height,
+            cells,
             walls,
         }
     }
@@ -80,6 +82,14 @@ impl Map {
             self.tile_size * self.height,
             &Color::BLACK,
         )
+    }
+
+    pub fn cells(&self) -> Vec<Vec<char>> {
+        self.cells.clone()
+    }
+
+    pub fn tile_size(&self) -> usize {
+        self.tile_size
     }
 }
 
