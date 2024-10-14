@@ -118,7 +118,7 @@ impl Drawable for VerticalLine {
         let bottom = horizon + (self.length / 2);
 
         for y in top..bottom {
-            buf.draw_pixel(self.x, y)
+            buf.draw_pixel(y, self.x)
         }
     }
 }

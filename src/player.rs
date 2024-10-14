@@ -24,7 +24,7 @@ impl Player {
         Self {
             x,
             y,
-            dir: PI,
+            dir: PI / 3.,
             fov: PI / 3.,
             rect: Rect::new(x, x, PLAYER_SIZE, PLAYER_SIZE),
         }
