@@ -12,14 +12,19 @@ fn main() {
         1        1
         1        1
         1111111111
-    ";
+    "
+    .trim();
     let map = Map::new(64, map_file);
 
-    let mut buf = FrameBuffer::new(500, 500, &Color::BLACK);
+    print!("{:?}", map);
+
+    let mut buf = map.into_buffer();
+
+    // let mut buf = FrameBuffer::new(500, 500, &Color::BLACK);
     buf.set_draw_color(Color::GREEN);
 
-    let rect = Rect::new(100, 150, 200, 50);
-    buf.draw_rect(&rect);
+    // let rect = Rect::new(100, 150, 200, 50);
+    // buf.draw_rect(&rect);
 
     buf.draw(map);
 

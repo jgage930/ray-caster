@@ -38,6 +38,7 @@ pub trait Drawable {
     fn draw(&self, buf: &mut FrameBuffer);
 }
 
+#[derive(Debug)]
 pub struct FrameBuffer {
     width: usize,
     height: usize,
@@ -82,6 +83,7 @@ impl FrameBuffer {
     }
 }
 
+#[derive(Debug)]
 pub struct Rect {
     top: usize,
     left: usize,
@@ -100,6 +102,7 @@ impl Rect {
     }
 }
 
+#[derive(Debug)]
 pub struct Map {
     tile_size: usize,
     width: usize,
@@ -119,6 +122,8 @@ impl Map {
             cells.push(row);
         }
 
+        print!("{:?}", cells);
+
         let width = &lines[0].len();
         let height = &lines.len();
 
@@ -134,7 +139,7 @@ impl Map {
                 let top = y * tile_size;
                 let left = x * tile_size;
 
-                let rect = Rect::new(top, left, left + tile_size, left + tile_size);
+                let rect = Rect::new(top, left, tile_size, tile_size);
                 walls.push(rect);
             }
         }
@@ -145,6 +150,14 @@ impl Map {
             height: *height,
             walls,
         }
+    }
+
+    pub fn into_buffer(&self) -> FrameBuffer {
+        FrameBuffer::new(
+            self.tile_size * self.width,
+            self.tile_size * self.height,
+            &Color::BLACK,
+        )
     }
 }
 
