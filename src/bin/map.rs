@@ -1,3 +1,4 @@
+use ray_caster::map::*;
 use ray_caster::*;
 
 fn main() {
