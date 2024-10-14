@@ -10,7 +10,7 @@ fn main() {
         1        1
         1    11111
         1    1   1
-        1   1    1
+        1   11   1
         1        1
         1        1
         1111111111
@@ -28,7 +28,7 @@ fn main() {
     buf.set_draw_color(Color::RED);
     buf.draw(&player);
 
-    player.cast_ray(&map, &mut buf);
+    player.cast_rays(&map, &mut buf);
 
     save_ppm("images/player.ppm", &buf).expect("Could not write to file.");
 }
