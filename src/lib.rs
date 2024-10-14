@@ -3,7 +3,7 @@ pub mod player;
 pub mod utils;
 
 use anyhow::{Context, Result};
-use map::Rect;
+use map::{Ray, Rect};
 use std::{fmt, fs};
 
 #[derive(Clone, Debug)]
@@ -84,6 +84,13 @@ impl FrameBuffer {
             for x in rect.left..right {
                 self.draw_pixel(x, y);
             }
+        }
+    }
+
+    pub fn render_3d(&mut self, rays: Vec<Ray>) {
+        let horizon = 256;
+        for ray in &rays {
+            let height = 1 / ray.length() as usize;
         }
     }
 }

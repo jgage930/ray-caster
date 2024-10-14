@@ -18,17 +18,9 @@ fn main() {
     .trim();
 
     let map = Map::new(64, map_file);
-    let mut buf = map.into_buffer();
-
-    buf.set_draw_color(Color::GREEN);
-    buf.draw(&map);
-
     let player = Player::new(100, 100);
 
-    buf.set_draw_color(Color::RED);
-    buf.draw(&player);
-
-    player.cast_rays(&map, &mut buf);
-
-    save_ppm("images/player.ppm", &buf).expect("Could not write to file.");
+    let rays = player.cast_rays(&map);
+    let mut buf = FrameBuffer::new(512, 512, &Color::WHITE);
+    save_ppm("images/3d_player.ppm", &buf).expect("Could not write to file.");
 }

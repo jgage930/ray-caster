@@ -1,5 +1,5 @@
 use crate::{
-    map::{Map, Rect},
+    map::{Map, Point, Ray, Rect},
     utils::FloatRange,
     Drawable, FrameBuffer,
 };
@@ -32,7 +32,7 @@ impl Player {
 
     /// Cast a single ray
     /// Draw ray to buffer.  to be removed later.
-    pub fn cast_ray(&self, angle: f32, map: &Map, buf: &mut FrameBuffer) {
+    pub fn cast_ray(&self, angle: f32, map: &Map) -> Ray {
         let player_x = self.x as f32;
         let player_y = self.y as f32;
 
@@ -44,15 +44,18 @@ impl Player {
             let index_x = (x / map.tile_size() as f32).floor() as usize;
             let index_y = (y / map.tile_size() as f32).floor() as usize;
             if map.cells()[index_x][index_y] != ' ' {
-                break;
+                let ray = Ray::new(player_x as usize, player_y as usize, x as usize, y as usize);
+                return ray;
             }
-
-            buf.draw_pixel(x.floor() as usize, y.floor() as usize);
         }
+
+        Ray::new(0, 0, 0, 0)
     }
 
     /// Cast 512 rays within the field of view.
-    pub fn cast_rays(&self, map: &Map, buf: &mut FrameBuffer) {
+    pub fn cast_rays(&self, map: &Map) -> Vec<Ray> {
+        let mut rays = Vec::new();
+
         let start = self.dir - (self.fov / 2.);
         let end = self.dir + (self.fov / 2.);
         // Calculate delta angle so 512 rays will be cast
@@ -60,8 +63,10 @@ impl Player {
 
         let range = FloatRange::new(start, end, d_a);
         for a in range {
-            self.cast_ray(a, map, buf);
+            rays.push(self.cast_ray(a, map));
         }
+
+        rays
     }
 }
 
