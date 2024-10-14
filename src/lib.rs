@@ -117,7 +117,7 @@ impl Map {
 
         let lines: Vec<&str> = map.split('\n').collect();
         for line in lines.iter() {
-            let row: Vec<char> = line.chars().collect();
+            let row: Vec<char> = line.trim().chars().collect();
 
             cells.push(row);
         }

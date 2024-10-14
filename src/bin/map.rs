@@ -4,19 +4,17 @@ fn main() {
     let map_file = "
         1111111111
         1        1
+        1  1     1
         1        1
-        1        1
-        1        1
-        1        1
-        1        1
+        1    1   1
+        1    1   1
+        1    1   1
         1        1
         1        1
         1111111111
     "
     .trim();
     let map = Map::new(64, map_file);
-
-    print!("{:?}", map);
 
     let mut buf = map.into_buffer();
 
