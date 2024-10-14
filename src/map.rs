@@ -1,6 +1,34 @@
 use crate::{Color, Drawable, FrameBuffer};
 
 #[derive(Debug)]
+pub struct Point {
+    pub x: usize,
+    pub y: usize,
+}
+
+#[derive(Debug)]
+pub struct Ray {
+    pub start: Point,
+    pub end: Point,
+}
+
+impl Ray {
+    pub fn new(x_0: usize, y_0: usize, x_1: usize, y_1: usize) -> Self {
+        Self {
+            start: Point { x: x_0, y: y_0 },
+            end: Point { x: x_1, y: y_1 },
+        }
+    }
+
+    pub fn length(&self) -> f32 {
+        let d_x = (self.start.x - self.end.x) as f32;
+        let d_y = (self.start.y - self.end.y) as f32;
+
+        (d_x.powf(2.) + d_y.powf(2.)).sqrt()
+    }
+}
+
+#[derive(Debug)]
 pub struct Rect {
     pub top: usize,
     pub left: usize,
