@@ -1,4 +1,7 @@
+use crate::engine::context::GameContext;
+use crate::engine::Drawable;
 use crate::engine::SdlResult;
+
 use anyhow::Result;
 use sdl2::pixels::Color;
 use sdl2::render::WindowCanvas;
@@ -14,13 +17,12 @@ impl Renderer {
         Ok(Self { canvas })
     }
 
-    pub fn update(&mut self) -> SdlResult<()> {
+    pub fn draw(&mut self, ctx: &GameContext) -> SdlResult<()> {
         self.canvas.set_draw_color(Color::BLACK);
         self.canvas.clear();
 
-        self.canvas.set_draw_color(Color::RGB(255, 0, 0));
-        self.canvas.draw_line((100, 100), (0, 0))?;
-        self.canvas.draw_line((500, 300), (0, 0))?;
+        ctx.map.draw(&mut self.canvas);
+        ctx.player.draw(&mut self.canvas);
 
         self.canvas.present();
 
