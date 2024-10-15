@@ -20,6 +20,13 @@ impl Ray {
 
         }
     }
+
+    pub fn length(&self) -> f32 {
+        let d_x = (self.start.x - self.end.x) as f32;
+        let d_y = (self.start.y - self.end.y) as f32;
+
+        (d_x.powf(2.) + d_y.powf(2.)).sqrt()
+    }
 }
 
 impl Drawable for Ray {

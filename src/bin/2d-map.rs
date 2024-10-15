@@ -18,8 +18,8 @@ fn main() {
     context.rays = Some(ray);
     
 
-    let window_width = (map.width() * map.tile_size()) as u32;
-    let window_height = (map.height() * map.tile_size()) as u32;
+    let window_width = 512;
+    let window_height = 512;
 
     let sdl_context = sdl2::init().unwrap();
     let video_subsystem = sdl_context.video().unwrap();
@@ -46,7 +46,7 @@ fn main() {
         }
         // The rest of the game loop goes here...
         renderer
-            .draw(&context)
+            .render_3d(window_height as i32, &context)
             .expect("Failed to update Game Loop.");
 
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));

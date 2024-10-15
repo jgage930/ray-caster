@@ -20,7 +20,7 @@ impl Player {
     pub fn new(x: i32, y: i32) -> Self {
         Self {
             looking_at: 0.,
-            fov: PI / 3.,
+            fov: PI / 6.,
             rect: Rect::new(x, y, SIZE, SIZE),
         }
     }

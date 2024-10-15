@@ -1,5 +1,6 @@
 use crate::engine::context::GameContext;
 use crate::engine::Drawable;
+use crate::engine::cast::Ray;
 use crate::engine::SdlResult;
 
 use anyhow::Result;
@@ -28,6 +29,33 @@ impl Renderer {
             for ray in rays {
                 ray.draw(&mut self.canvas)?;
             }
+        }
+
+        self.canvas.present();
+
+        Ok(())
+    }
+    
+    pub fn render_3d(&mut self, window_height: i32, ctx: &GameContext) -> SdlResult<()> {
+        self.canvas.set_draw_color(Color::WHITE);
+        self.canvas.clear();
+
+        self.canvas.set_draw_color(Color::RED);
+        let horizon = window_height / 2;
+
+        if let Some(rays) = &ctx.rays {
+            for (x, ray) in rays.iter().enumerate() {
+                let line_height = (1. / ray.length()) * (window_height * 64) as f32; 
+                println!("{line_height}");
+
+                let top = (x as i32, horizon - (line_height / 2.) as i32);
+                let bottom = (x as i32, horizon + (line_height / 2.) as i32);
+
+                self.canvas.draw_line(
+                    top, 
+                    bottom 
+                )?;
+            }        
         }
 
         self.canvas.present();
