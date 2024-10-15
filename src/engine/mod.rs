@@ -2,8 +2,8 @@ pub mod context;
 pub mod map;
 pub mod player;
 pub mod renderer;
+pub mod cast;
 
-use renderer::Renderer;
 use sdl2::render::WindowCanvas;
 
 /// An alias for the result type used by sdl2.
