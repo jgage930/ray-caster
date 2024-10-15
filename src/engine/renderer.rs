@@ -1,4 +1,5 @@
 use crate::engine::context::GameContext;
+use crate::engine::Drawable;
 use crate::engine::SdlResult;
 
 use anyhow::Result;
@@ -20,9 +21,7 @@ impl Renderer {
         self.canvas.set_draw_color(Color::BLACK);
         self.canvas.clear();
 
-        self.canvas.set_draw_color(Color::RGB(255, 0, 0));
-        self.canvas.draw_line((100, 100), (0, 0))?;
-        self.canvas.draw_line((500, 300), (0, 0))?;
+        ctx.map.draw(&mut self.canvas);
 
         self.canvas.present();
 

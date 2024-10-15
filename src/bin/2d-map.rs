@@ -9,7 +9,7 @@ use ray_caster::engine::renderer::Renderer;
 fn main() {
     let map = Map::new("maps/test_map.txt").expect("Could not create map.");
 
-    let context = GameContext { map };
+    let context = GameContext { map: map.clone() };
 
     let window_width = (map.width() * map.tile_size()) as u32;
     let window_height = (map.height() * map.tile_size()) as u32;
@@ -38,7 +38,9 @@ fn main() {
             }
         }
         // The rest of the game loop goes here...
-        renderer.update().expect("Failed to update Game Loop.");
+        renderer
+            .draw(&context)
+            .expect("Failed to update Game Loop.");
 
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
     }

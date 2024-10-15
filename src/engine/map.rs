@@ -1,10 +1,14 @@
 use anyhow::Result;
+use sdl2::pixels::Color;
 use sdl2::rect::Rect;
+use sdl2::render::WindowCanvas;
 use std::fs;
+
+use crate::engine::{Drawable, SdlResult};
 
 type Cells = Vec<Vec<char>>;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Map {
     tile_size: usize,
     width: usize,
@@ -96,5 +100,17 @@ impl Map {
         }
 
         cells
+    }
+}
+
+impl Drawable for Map {
+    fn draw(&self, canvas: &mut WindowCanvas) -> SdlResult<()> {
+        canvas.set_draw_color(Color::RED);
+
+        for wall in &self.walls {
+            canvas.draw_rect(*wall)?;
+        }
+
+        Ok(())
     }
 }
