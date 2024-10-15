@@ -68,6 +68,14 @@ impl Map {
         self.tile_size
     }
 
+    pub fn width(&self) -> usize {
+        self.width
+    }
+
+    pub fn height(&self) -> usize {
+        self.height
+    }
+
     /// Get a copy of the maps cells.
     pub fn cells(&self) -> Cells {
         self.cells.clone()
