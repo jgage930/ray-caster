@@ -4,6 +4,7 @@ use std::fs;
 
 type Cells = Vec<Vec<char>>;
 
+#[derive(Debug)]
 pub struct Map {
     tile_size: usize,
     width: usize,
@@ -19,7 +20,10 @@ impl Map {
     /// Any cell that is not space will be a wall.
     pub fn new(path: &str) -> Result<Self> {
         let file = fs::read_to_string(path)?;
-        let lines: Vec<&str> = file.split('\n').map(|l| l.trim()).collect();
+        let lines: Vec<&str> = file
+            .split('\n')
+            .filter_map(|l| if l == "" { return None } else { Some(l.trim()) })
+            .collect();
 
         let tile_size = &lines[0].trim().parse::<usize>()?;
         let map_str = &lines[1..];
@@ -51,7 +55,13 @@ impl Map {
             }
         }
 
-        todo!()
+        Ok(Self {
+            tile_size: *tile_size,
+            width: *width,
+            height: *height,
+            cells,
+            walls,
+        })
     }
 
     pub fn tile_size(&self) -> usize {
@@ -61,6 +71,10 @@ impl Map {
     /// Get a copy of the maps cells.
     pub fn cells(&self) -> Cells {
         self.cells.clone()
+    }
+
+    pub fn walls(&self) -> Vec<Rect> {
+        self.walls.clone()
     }
 
     /// Parse a string into a vec<vec<char>>
