@@ -9,11 +9,11 @@ const COLOR: Color = Color::GREEN;
 #[derive(Debug, Clone)]
 pub struct Player {
     // Angle that the player is looking at in radians.
-    looking_at: f32,
+    pub looking_at: f32,
     // The field of view of the player in radians.
-    fov: f32,
+    pub fov: f32,
 
-    rect: Rect,
+    pub rect: Rect,
 }
 
 impl Player {
