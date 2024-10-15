@@ -31,13 +31,11 @@ impl Drawable for Ray {
     }
 }
 
-pub fn cast_single_ray(ctx: &GameContext) -> Ray {
+pub fn cast_single_ray(angle: f32, ctx: &GameContext) -> Ray {
     let center = ctx.player.rect.center();
 
     let player_x = center.x() as f32;
     let player_y = center.y() as f32;
-
-    let angle = ctx.player.looking_at;
 
     let range = FloatRange::new(0., 1_000., ctx.map.tile_size() as f32);
     for c in range {
@@ -60,4 +58,23 @@ pub fn cast_single_ray(ctx: &GameContext) -> Ray {
     }
 
     Ray::new(0, 0, 0, 0)
+}
+
+pub fn cast_rays(ctx: &GameContext) -> Vec<Ray> {
+    let mut rays = Vec::new();
+
+    let dir = ctx.player.looking_at;
+    let fov = ctx.player.fov;
+
+    let start = dir - (fov / 2.);
+    let end = dir + (fov / 2.);
+    // Calculate delta angle so 512 rays will be cast
+    let d_a = fov / 512.;
+
+    let range = FloatRange::new(start, end, d_a);
+    for a in range {
+        rays.push(cast_single_ray(a, ctx));
+    }
+
+    rays
 }
