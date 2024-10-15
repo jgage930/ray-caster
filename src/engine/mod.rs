@@ -1,5 +1,6 @@
 pub mod context;
 pub mod map;
+pub mod player;
 pub mod renderer;
 
 use renderer::Renderer;

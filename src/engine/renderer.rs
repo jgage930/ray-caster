@@ -22,6 +22,7 @@ impl Renderer {
         self.canvas.clear();
 
         ctx.map.draw(&mut self.canvas);
+        ctx.player.draw(&mut self.canvas);
 
         self.canvas.present();
 

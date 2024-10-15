@@ -1,3 +1,4 @@
+use ray_caster::engine::player::Player;
 use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use std::time::Duration;
@@ -8,8 +9,9 @@ use ray_caster::engine::renderer::Renderer;
 
 fn main() {
     let map = Map::new("maps/test_map.txt").expect("Could not create map.");
+    let player = Player::new(100, 100);
 
-    let context = GameContext { map: map.clone() };
+    let context = GameContext { map: map.clone(), player };
 
     let window_width = (map.width() * map.tile_size()) as u32;
     let window_height = (map.height() * map.tile_size()) as u32;
