@@ -1,4 +1,6 @@
+use crate::engine::context::GameContext;
 use crate::engine::SdlResult;
+
 use anyhow::Result;
 use sdl2::pixels::Color;
 use sdl2::render::WindowCanvas;
@@ -14,7 +16,7 @@ impl Renderer {
         Ok(Self { canvas })
     }
 
-    pub fn update(&mut self) -> SdlResult<()> {
+    pub fn draw(&mut self, ctx: &GameContext) -> SdlResult<()> {
         self.canvas.set_draw_color(Color::BLACK);
         self.canvas.clear();
 

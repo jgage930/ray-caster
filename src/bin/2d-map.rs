@@ -2,11 +2,14 @@ use sdl2::event::Event;
 use sdl2::keyboard::Keycode;
 use std::time::Duration;
 
+use ray_caster::engine::context::GameContext;
 use ray_caster::engine::map::Map;
 use ray_caster::engine::renderer::Renderer;
 
 fn main() {
     let map = Map::new("maps/test_map.txt").expect("Could not create map.");
+
+    let context = GameContext { map };
 
     let window_width = (map.width() * map.tile_size()) as u32;
     let window_height = (map.height() * map.tile_size()) as u32;
