@@ -39,14 +39,16 @@ pub fn cast_single_ray(ctx: &GameContext) -> Ray {
 
     let angle = ctx.player.looking_at;
 
-    let range = FloatRange::new(0., 10_000., 0.5);
+    let range = FloatRange::new(0., 1_000., ctx.map.tile_size() as f32);
     for c in range {
         let x = player_x + c * angle.cos();
         let y = player_y + c * angle.sin();
 
         let index_x = (x / ctx.map.tile_size() as f32).floor() as usize;
         let index_y = (y / ctx.map.tile_size() as f32).floor() as usize;
-        if ctx.map.cells()[index_x][index_y] != ' ' {
+        
+        let char_at = ctx.map.cells()[index_y][index_x];
+        if char_at != ' ' {
             let ray = Ray::new(
                 player_x as i32,
                 player_y as i32,
