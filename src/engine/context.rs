@@ -9,3 +9,11 @@ pub struct GameContext {
     pub rays: Option<Vec<Ray>>,
 }
 
+impl GameContext {
+    pub fn update(&mut self) {
+        let rotate_speed = 0.01;
+
+        self.player.looking_at += rotate_speed;
+    }
+}
+

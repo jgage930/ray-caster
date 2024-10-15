@@ -44,7 +44,7 @@ pub fn cast_single_ray(angle: f32, ctx: &GameContext) -> Ray {
     let player_x = center.x() as f32;
     let player_y = center.y() as f32;
 
-    let range = FloatRange::new(0., 1_000., 0.5);
+    let range = FloatRange::new(0., 1_000., 1.);
     for c in range {
         let x = player_x + c * angle.cos();
         let y = player_y + c * angle.sin();
