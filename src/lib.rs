@@ -1,3 +1,4 @@
+pub mod engine;
 pub mod map;
 pub mod player;
 pub mod utils;
