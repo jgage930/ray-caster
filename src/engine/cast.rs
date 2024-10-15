@@ -1,10 +1,12 @@
 use sdl2::rect::Point;
+use sdl2::pixels::Color;
 
-use crate::{engine::player, utils::FloatRange};
+use crate::{engine::{player, Drawable}, utils::FloatRange};
 
 use super::context::GameContext;
 
 
+#[derive(Debug)]
 pub struct Ray {
     start: Point,
     end: Point,
@@ -20,6 +22,15 @@ impl Ray {
     }
 }
 
+impl Drawable for Ray {
+    fn draw(&self, canvas: &mut sdl2::render::WindowCanvas) -> super::SdlResult<()> {
+        canvas.set_draw_color(Color::WHITE);
+        canvas.draw_line(self.start, self.end)?;
+
+        Ok(())
+    }
+}
+
 pub fn cast_single_ray(ctx: &GameContext) -> Ray {
     let center = ctx.player.rect.center();
 
@@ -28,7 +39,7 @@ pub fn cast_single_ray(ctx: &GameContext) -> Ray {
 
     let angle = ctx.player.looking_at;
 
-    let range = FloatRange::new(0., 10_000., ctx.map.tile_size() as f32);
+    let range = FloatRange::new(0., 10_000., 0.5);
     for c in range {
         let x = player_x + c * angle.cos();
         let y = player_y + c * angle.sin();

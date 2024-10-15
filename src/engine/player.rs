@@ -19,7 +19,7 @@ pub struct Player {
 impl Player {
     pub fn new(x: i32, y: i32) -> Self {
         Self {
-            looking_at: PI,
+            looking_at: PI / 2.,
             fov: PI / 3.,
             rect: Rect::new(x, y, SIZE, SIZE),
         }

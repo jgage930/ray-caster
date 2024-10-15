@@ -21,8 +21,14 @@ impl Renderer {
         self.canvas.set_draw_color(Color::BLACK);
         self.canvas.clear();
 
-        ctx.map.draw(&mut self.canvas);
-        ctx.player.draw(&mut self.canvas);
+        ctx.map.draw(&mut self.canvas)?;
+        ctx.player.draw(&mut self.canvas)?;
+
+        if let Some(rays) = &ctx.rays {
+            for ray in rays {
+                ray.draw(&mut self.canvas)?;
+            }
+        }
 
         self.canvas.present();
 
