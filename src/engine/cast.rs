@@ -1,7 +1,7 @@
 use sdl2::rect::Point;
 use sdl2::pixels::Color;
 
-use crate::{engine::{player, Drawable}, utils::FloatRange};
+use crate::{engine::{Drawable}, utils::FloatRange};
 
 use super::context::GameContext;
 

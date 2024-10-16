@@ -1,6 +1,5 @@
 use crate::engine::context::GameContext;
 use crate::engine::Drawable;
-use crate::engine::cast::Ray;
 use crate::engine::SdlResult;
 
 use anyhow::Result;
