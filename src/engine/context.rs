@@ -11,7 +11,7 @@ pub struct GameContext {
 
 impl GameContext {
     pub fn update(&mut self) {
-        let rotate_speed = 0.01;
+        let rotate_speed = 0.1;
 
         self.player.looking_at += rotate_speed;
     }

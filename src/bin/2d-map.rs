@@ -14,8 +14,6 @@ fn main() {
 
     let mut context = GameContext { map: map.clone(), player, rays: None};
 
-    let ray = cast_rays(&context);
-    context.rays = Some(ray);
     
 
     let window_width = 640;
@@ -48,6 +46,11 @@ fn main() {
         renderer
             .draw(&context)
             .expect("Failed to update Game Loop.");
+
+        let ray = cast_rays(&context);
+        context.rays = Some(ray);
+
+        context.update();
 
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / 60));
     }
