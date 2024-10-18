@@ -5,16 +5,21 @@ use sdl2::{event::Event, keyboard::Keycode};
 
 use std::time::Duration;
 
-use engine::{cast::cast_rays, context::GameContext, map::Map, player::Player, renderer::Renderer};
+use engine::{
+    cast::cast_rays, context::GameContext, game_time::GameTimer, map::Map, player::Player,
+    renderer::Renderer,
+};
 
 fn main() {
     let map = Map::new("maps/test_map.txt").expect("Could not create map.");
     let player = Player::new(100, 100);
+    let time = GameTimer::new();
 
     let mut context = GameContext {
         map: map.clone(),
         player,
         rays: None,
+        time,
     };
 
     let window_width = 640;
@@ -22,7 +27,6 @@ fn main() {
 
     let sdl_context = sdl2::init().unwrap();
     let video_subsystem = sdl_context.video().unwrap();
-    let timer_subsystem = sdl_context.timer().unwrap();
 
     let window = video_subsystem
         .window("2d Map", window_width, window_height)
@@ -46,7 +50,7 @@ fn main() {
         }
         // The rest of the game loop goes here...
         renderer
-            .draw(&context)
+            .render_3d(512, &context)
             .expect("Failed to update Game Loop.");
 
         let ray = cast_rays(&context);
