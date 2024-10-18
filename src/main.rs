@@ -1,34 +1,28 @@
 pub mod engine;
 pub mod utils;
 
-use sdl2::{
-    event::Event,
-    keyboard::Keycode,
-};
+use sdl2::{event::Event, keyboard::Keycode};
 
 use std::time::Duration;
 
-use engine::{
-    context::GameContext,
-    map::Map,
-    renderer::Renderer,
-    cast::cast_rays,
-    player::Player,
-};
+use engine::{cast::cast_rays, context::GameContext, map::Map, player::Player, renderer::Renderer};
 
 fn main() {
     let map = Map::new("maps/test_map.txt").expect("Could not create map.");
     let player = Player::new(100, 100);
 
-    let mut context = GameContext { map: map.clone(), player, rays: None};
-
-    
+    let mut context = GameContext {
+        map: map.clone(),
+        player,
+        rays: None,
+    };
 
     let window_width = 640;
     let window_height = 640;
 
     let sdl_context = sdl2::init().unwrap();
     let video_subsystem = sdl_context.video().unwrap();
+    let timer_subsystem = sdl_context.timer().unwrap();
 
     let window = video_subsystem
         .window("2d Map", window_width, window_height)

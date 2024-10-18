@@ -16,4 +16,3 @@ impl GameContext {
         self.player.looking_at += rotate_speed;
     }
 }
-

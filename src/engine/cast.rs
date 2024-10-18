@@ -1,10 +1,9 @@
-use sdl2::rect::Point;
 use sdl2::pixels::Color;
+use sdl2::rect::Point;
 
-use crate::{engine::{Drawable}, utils::FloatRange};
+use crate::{engine::Drawable, utils::FloatRange};
 
 use super::context::GameContext;
-
 
 #[derive(Debug)]
 pub struct Ray {
@@ -17,7 +16,6 @@ impl Ray {
         Self {
             start: Point::new(x_0, y_0),
             end: Point::new(x_1, y_1),
-
         }
     }
 
@@ -51,15 +49,10 @@ pub fn cast_single_ray(angle: f32, ctx: &GameContext) -> Ray {
 
         let index_x = (x / ctx.map.tile_size() as f32).floor() as usize;
         let index_y = (y / ctx.map.tile_size() as f32).floor() as usize;
-        
+
         let char_at = ctx.map.cells()[index_y][index_x];
         if char_at != ' ' {
-            let ray = Ray::new(
-                player_x as i32,
-                player_y as i32,
-                x as i32,
-                y as i32,
-            );
+            let ray = Ray::new(player_x as i32, player_y as i32, x as i32, y as i32);
             return ray;
         }
     }
