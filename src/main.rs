@@ -22,7 +22,7 @@ fn main() {
         time,
     };
 
-    let window_width = 640;
+    let window_width = 512;
     let window_height = 640;
 
     let sdl_context = sdl2::init().unwrap();
